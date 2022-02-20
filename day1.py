@@ -17,12 +17,44 @@ def parse(puzzle_input):
     
 
 #functions
+def add_path(path, facing, distance):
+    current_locations = set(path)
+    current_path = []
+    path_crossings = []
+    for i in range(0,distance):
+        x,y = path[-1]
+        if facing == 0:
+            current_path.append((x, y + 1 + i))
+        elif facing == 1:
+            current_path.append((x + 1 + i, y))
+        elif facing == 2:
+            current_path.append((x, y - 1 - i))
+        elif facing == 3:
+            current_path.append((x - 1 - i, y))
+    
+    for step in current_path: 
+        j = len(current_locations)
+        current_locations.add(step)
+        if j == len(current_locations):
+            path_crossings.append(step)
+    
+    if len(path_crossings) == 0:
+        hq = 0
+        intersect = False
+    else:
+        hq = path_crossings[0]
+        intersect = True
+        
+    path = path + current_path
+    
+    return path, intersect, hq
 
 #solve
 def solve(puzzle_data):
     facing = 0 #compass North: 0 East:1 South:2 West: 3 
     position = (0,0)
-    visited = []
+    path = [(0,0)]
+    intersect = False
     
     for direction in puzzle_data:
         x, y = position
@@ -45,9 +77,19 @@ def solve(puzzle_data):
         elif facing == 3:
             position = x - distance, y
             
-        visited.append(position)
+        if not intersect:    
+            path, intersect, hq = add_path(path, facing, distance)
+
+
+    if hq == 0:
+        print "no repeated location"
+        bunny_hq = (0,0)
+    else:
+        bunny_hq = hq
+        
+        
             
-    return abs(position[0]) + abs(position[1]), visited
+    return abs(position[0]) + abs(position[1]), abs(bunny_hq[0]) + abs(bunny_hq[1])
 
 #run and print solution 
 puzzle_path = "input_day1.txt"
@@ -55,7 +97,7 @@ with open(puzzle_path) as f:
     puzzle_input = f.read()
     
 puzzle_data = parse(puzzle_input)
-solution1 = solve(puzzle_data)
-solution2 = solve(puzzle_data)
+solution1, solution2 = solve(puzzle_data)
+
 print(solution1)
 print(solution2)
