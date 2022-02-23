@@ -17,8 +17,13 @@ def parse(puzzle_input):
     return data
     
 def solve(puzzle_data):
+    possible = 0
     
-    return 0,0
+    for triangle in puzzle_data:
+        if triangle[0] + triangle[1] > triangle[2]:
+            possible += 1
+    
+    return possible, 0
 
 puzzle_path = "input_day3.txt"
 with open(puzzle_path) as f:
