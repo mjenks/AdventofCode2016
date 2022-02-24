@@ -6,6 +6,7 @@ Created on Thu Feb 24 10:41:41 2022
 """
 
 import collections
+import string
 
 def parse(puzzle_input):
     data = []
@@ -44,19 +45,42 @@ def isReal(room):
         return True
     else:
         return False
+        
+def cipher(letter, number):
+    letter_id = string.ascii_lowercase.index(letter)
+    return string.ascii_lowercase[(letter_id + number)%26]
+    
+        
+def decode(room):
+    name, sector, check = room
+    sector = int(sector)
+    decoded_name = []
+    for word in name:
+        letters = []
+        for letter in list(word):
+            letters.append(cipher(letter, sector))
+        decoded_name.append(''.join(letters))
+        
+    return ' '.join(decoded_name)
+    
     
    
 def solve(puzzle_data):
     sector_sum = 0
-    valid_rooms = 0
+    valid_rooms = []
     
     for room in puzzle_data:
         if isReal(room):
             sector_sum += int(room[1])
-            valid_rooms += 1
+            valid_rooms.append(room)
     
+    for room in valid_rooms:
+        name = decode(room)
+        if 'northpole' in name:
+            sector = int(room[1])
+        
 
-    return sector_sum,0
+    return sector_sum, sector
 
 puzzle_path = "input_day4.txt"
 with open(puzzle_path) as f:
