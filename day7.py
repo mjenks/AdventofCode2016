@@ -78,11 +78,18 @@ def ssl_supported(ip):
 def solve(puzzle_input):
     tls_count = 0
     ssl_count = 0
+    both_count = 0
     for ip in puzzle_input:
         if tls_supported(ip):
             tls_count += 1
+            tls = True
+        else:
+            tls = False
         if ssl_supported(ip):
             ssl_count += 1
+            if tls:
+                both_count += 1
+    print both_count
     return tls_count, ssl_count
 
 puzzle_path = "input_day7.txt"
