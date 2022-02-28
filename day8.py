@@ -28,7 +28,33 @@ def parse(puzzle_input):
     return data
     
 def solve(puzzle_data):
-    return 0,0
+    rows = 6
+    cols = 50
+    screen = [[0 for i in range(cols)] for j in range(rows)]
+
+    for instr in puzzle_data:
+        opr, a, b = instr
+        if opr == 'rect':
+            for i in range(b):
+                for j in range(a):
+                    screen[i][j] = 1
+        if opr == 'row':
+            row = []
+            for i in range(cols):
+                row.append(screen[a][i])
+            for x in range(cols):
+                screen[a][(x+b)%cols] = row[x]
+        if opr == 'col':
+            col = []
+            for j in range(rows):
+                col.append(screen[j][a])
+            for y in range(rows):
+                screen[(y+b)%rows][a] = col[y]
+
+                
+    lit = sum(sum(screen[x]) for x in range(rows))
+    
+    return lit, 0
     
 puzzle_path = "input_day8.txt"
 with open(puzzle_path) as f:
