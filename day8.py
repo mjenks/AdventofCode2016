@@ -50,11 +50,10 @@ def solve(puzzle_data):
                 col.append(screen[j][a])
             for y in range(rows):
                 screen[(y+b)%rows][a] = col[y]
-
                 
     lit = sum(sum(screen[x]) for x in range(rows))
     
-    return lit, 0
+    return lit, screen
     
 puzzle_path = "input_day8.txt"
 with open(puzzle_path) as f:
@@ -64,4 +63,10 @@ puzzle_data = parse(puzzle_input)
 solution1, solution2 = solve(puzzle_data)
 
 print(solution1)
-print(solution2)
+#for solution 2 print a readable output of the screen
+for i in range(len(solution2)):
+    line = []
+    for val in solution2[i]:
+        if val == 0: line.append(' ')
+        elif val == 1: line.append('X')
+    print ''.join(line)
