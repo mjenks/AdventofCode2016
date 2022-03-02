@@ -12,8 +12,21 @@ def parse(puzzle_input):
         line = line.strip().split()
         if line[0] == 'bot':
             actor = ' '.join(line[:2])
-            low = int(line[6])
-            high = int(line[11])
+            #assign outputs negative values and bots positive and output 0 set as -900
+            if line[5] == 'bot':
+                low = int(line[6])
+            else:
+                if int(line[6]) == 0:
+                    low = -900
+                else:
+                    low = -1*int(line[6])
+            if line[10] == 'bot':
+                high = int(line[11])
+            else:
+                if int(line[11]) == 0:
+                    high = -900
+                else:
+                    high = -1*int(line[11])
             actions[actor] = low, high
         else:
             chip = int(line[1])
@@ -28,6 +41,7 @@ def solve(puzzle_data):
     bots = [[] for i in range(len(actions))]
     unfound = True
     wanted = ''
+    outputs = [-1,-1,-1]
 
     #set up by giving each bot chips it is assigned
     for inst in start:
@@ -35,7 +49,7 @@ def solve(puzzle_data):
         bots[bot].append(chip)
         
     #have bots act until a bot has chip 61 and 17
-    while unfound:
+    while unfound or -1 in outputs:
         for i in range(len(bots)):
             if len(bots[i]) == 2:
                 held = bots[i]
@@ -45,11 +59,28 @@ def solve(puzzle_data):
                     unfound = False
                 held.sort()
                 low, high = actions[name]
-                bots[low].append(held[0])
-                bots[high].append(held[1])
+                if low < 0:
+                    if low == -900:
+                        out = 0
+                    else:
+                        out = -1*low
+                    if out < 3:
+                        outputs[out] = held[0]
+                else:
+                    bots[low].append(held[0])
+                if high < 0:
+                    if high == -900:
+                        out = 0
+                    else:
+                        out = -1*high
+                    if out < 3:
+                        outputs[out] = held[1]
+                else:
+                    bots[high].append(held[1])
                 bots[i] = []
+    product = outputs[0]*outputs[1]*outputs[2]
 
-    return wanted,0
+    return wanted, product
 
 puzzle_path = "input_day10.txt"
 with open(puzzle_path) as f:
