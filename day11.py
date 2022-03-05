@@ -9,21 +9,30 @@ def parse(puzzle_input):
     data = []
     for line in puzzle_input:
         line = line.strip().split(',')
-        first = line[0].split()
-        floor = first[1]
-        chips = []
-        generators = []
+        floor = {}
+        floor["chip"] = []
+        floor["RTG"] = []
         for item in line:
             item = item.split()
             if 'chip' in item[-1]:
-                chips.append(item[-2][:-11])
+                floor["chip"].append(item[-2][:-11])
             if 'generator' in item[-1]:
-                generators.append(item[-2])
-        data.append((floor, chips, generators))
+                floor["RTG"].append(item[-2])
+        data.append(floor)
         
     return data
     
+def check(floor):
+    fried = False
+    if len(floor["RTG"]) != 0:
+        for chip in floor["chip"]:
+            if chip not in floor["RTG"]:
+                fried = True
+    return fried
+    
 def solve(puzzle_data):
+    elevator = 1
+    
     return 0, 0
 
 puzzle_path = "input_day11.txt"
