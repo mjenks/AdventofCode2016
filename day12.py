@@ -22,7 +22,41 @@ def parse(puzzle_input):
     
 def solve(puzzle_data):
     reg = {'a': 0, 'b': 0, 'c': 0, 'd': 0}
-    return 0, 0
+    i = 0
+    while i < len(puzzle_data):
+        inst = puzzle_data[i]
+        if inst[0] == 'cpy':
+            x = inst[1]
+            y = inst[2]
+            try:
+                reg[y] = int(x)
+            except:
+                reg[y] = reg[x]
+            i += 1
+        elif inst[0] == 'inc':
+            x = inst[1]
+            reg[x] += 1
+            i += 1
+        elif inst[0] == 'dec':
+            x = inst[1]
+            reg[x] -= 1
+            i += 1
+        elif inst[0] == 'jnz':
+            x = inst[1]
+            y = int(inst[2])
+            try:
+                test = int(x)
+            except:
+                test = reg[x]
+            if test == 0:
+                i += 1
+            else:
+                i += y
+        else:
+            print "Unknown Command"
+            break
+                
+    return reg['a'], 0
     
 puzzle_path = "input_day12.txt"
 with open(puzzle_path) as f:
