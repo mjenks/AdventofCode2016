@@ -20,8 +20,8 @@ def parse(puzzle_input):
    
     return data
     
-def solve(puzzle_data):
-    reg = {'a': 0, 'b': 0, 'c': 0, 'd': 0}
+def solve(puzzle_data, c):
+    reg = {'a': 0, 'b': 0, 'c': c, 'd': 0}
     i = 0
     while i < len(puzzle_data):
         inst = puzzle_data[i]
@@ -56,14 +56,15 @@ def solve(puzzle_data):
             print "Unknown Command"
             break
                 
-    return reg['a'], 0
+    return reg['a']
     
 puzzle_path = "input_day12.txt"
 with open(puzzle_path) as f:
     puzzle_input = f.readlines()
     
 puzzle_data = parse(puzzle_input)
-solution1, solution2 = solve(puzzle_data)
+solution1 = solve(puzzle_data, 0)
+solution2 = solve(puzzle_data, 1)
 
 print(solution1)
 print(solution2)
