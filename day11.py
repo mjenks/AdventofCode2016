@@ -61,6 +61,8 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
+                    
             for chip2 in current[0]:
                 current[0].remove(chip2)
                 des[0].add(chip2)
@@ -70,6 +72,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip2)
                 des[0].remove(chip2)  
             des[0].remove(chip1)
@@ -84,6 +87,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for rtg2 in current[1]:
                 current[1].remove(rtg2)
                 des[1].add(rtg2)
@@ -93,6 +97,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[1].add(rtg2)
                 des[1].remove(rtg2)  
             des[1].remove(rtg1)
@@ -110,6 +115,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip)
                 current[1].add(chip)
                 des[0].remove(chip)
@@ -128,6 +134,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for chip2 in current[0]:
                 current[0].remove(chip2)
                 des[0].add(chip2)
@@ -137,6 +144,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip2)
                 des[0].remove(chip2)  
             des[0].remove(chip)
@@ -151,6 +159,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for rtg2 in current[1]:
                 current[1].remove(rtg2)
                 des[1].add(rtg2)
@@ -160,6 +169,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[1].add(rtg2)
                 des[1].remove(rtg2)  
             des[1].remove(rtg)
@@ -177,6 +187,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip)
                 current[1].add(chip)
                 des[0].remove(chip)
@@ -194,6 +205,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for chip2 in current[0]:
                 current[0].remove(chip2)
                 des[0].add(chip2)
@@ -203,6 +215,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip2)
                 des[0].remove(chip2)  
             des[0].remove(chip)
@@ -217,6 +230,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for rtg2 in current[1]:
                 current[1].remove(rtg2)
                 des[1].add(rtg2)
@@ -226,6 +240,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[1].add(rtg2)
                 des[1].remove(rtg2)  
             des[1].remove(rtg)
@@ -243,6 +258,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip)
                 current[1].add(chip)
                 des[0].remove(chip)
@@ -260,6 +276,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for chip2 in current[0]:
                 current[0].remove(chip2)
                 des[0].add(chip2)
@@ -269,6 +286,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip2)
                 des[0].remove(chip2)  
             des[0].remove(chip)
@@ -283,6 +301,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for rtg2 in current[1]:
                 current[1].remove(rtg2)
                 des[1].add(rtg2)
@@ -292,6 +311,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[1].add(rtg2)
                 des[1].remove(rtg2)  
             des[1].remove(rtg)
@@ -309,6 +329,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip)
                 current[1].add(chip)
                 des[0].remove(chip)
@@ -326,6 +347,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for chip2 in current[0]:
                 current[0].remove(chip2)
                 des[0].add(chip2)
@@ -335,6 +357,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip2)
                 des[0].remove(chip2)  
             des[0].remove(chip)
@@ -349,6 +372,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for rtg2 in current[1]:
                 current[1].remove(rtg2)
                 des[1].add(rtg2)
@@ -358,6 +382,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[1].add(rtg2)
                 des[1].remove(rtg2)  
             des[1].remove(rtg)
@@ -375,6 +400,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip)
                 current[1].add(chip)
                 des[0].remove(chip)
@@ -392,6 +418,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for chip2 in current[0]:
                 current[0].remove(chip2)
                 des[0].add(chip2)
@@ -401,6 +428,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip2)
                 des[0].remove(chip2)  
             des[0].remove(chip)
@@ -415,6 +443,7 @@ def move(start, prior_states, count):
                 if state not in prior_states:
                     prior_states.add(state)
                     move(new_state, prior_states, count+1)
+                    prior_states.remove(state)
             for rtg2 in current[1]:
                 current[1].remove(rtg2)
                 des[1].add(rtg2)
@@ -424,6 +453,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[1].add(rtg2)
                 des[1].remove(rtg2)  
             des[1].remove(rtg)
@@ -441,6 +471,7 @@ def move(start, prior_states, count):
                     if state not in prior_states:
                         prior_states.add(state)
                         move(new_state, prior_states, count+1)
+                        prior_states.remove(state)
                 current[0].add(chip)
                 current[1].add(chip)
                 des[0].remove(chip)
