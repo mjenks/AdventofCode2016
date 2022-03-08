@@ -45,11 +45,14 @@ def move(current):
 def solve():
     location = [(1,1)]
     steps = 0
+    part2 = 0
     while (31,39) not in visited:
         steps += 1
         location = move(location)
+        if steps == 50:
+            part2 = len(visited)
     
-    return steps, 0
+    return steps, part2
 
 visited = set()
 puzzle_input = 1364
