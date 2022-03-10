@@ -29,14 +29,15 @@ def solve(puzzle_data):
         time += 1
         escaped = escape(puzzle_data, time)
         
-    return time, 0
+    return time
 
 puzzle_path = "input_day15.txt"
 with open(puzzle_path) as f:
     puzzle_input = f.readlines()
     
 puzzle_data = parse(puzzle_input)
-solution1, solution2 = solve(puzzle_data)
-
+solution1 = solve(puzzle_data)
 print(solution1)
+puzzle_data[7] = (11, 0)
+solution2 = solve(puzzle_data)
 print(solution2)
