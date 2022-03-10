@@ -14,8 +14,22 @@ def parse(puzzle_input):
         data[int(line[1][1])] = (int(line[3]), int(line[11][:-1]))
     return data
     
+def escape(discs, time):
+    escaped = True
+    for disc in discs.keys():
+        pos, start = discs[disc]
+        if (time + disc + start)%pos != 0:
+            escaped = False
+    return escaped
+
 def solve(puzzle_data):
-    return 0, 0
+    time = -1
+    escaped = False
+    while not escaped:
+        time += 1
+        escaped = escape(puzzle_data, time)
+        
+    return time, 0
 
 puzzle_path = "input_day15.txt"
 with open(puzzle_path) as f:
