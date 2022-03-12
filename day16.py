@@ -41,5 +41,6 @@ puzzle_data = [0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1]
 disc1 = 272
 solution1 = solve(puzzle_data, disc1)
 print(solution1)
-#solution2 = solve(puzzle_data)
-#print(solution2)
+disc2 = 35651584
+solution2 = solve(puzzle_data, disc2)
+print(solution2)
