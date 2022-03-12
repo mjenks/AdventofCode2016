@@ -14,9 +14,26 @@ def gendata(data):
         new_data.append((data[i]+1)%2)
     return new_data
     
-def solve(puzzle_data, disc_size):
+def findchecksum(data):
+    i = 0
+    checksum = []
+    while i+1 < len(data):
+        if data[i] == data[i+1]:
+            checksum.append(1)
+        else:
+            checksum.append(0)
+        i += 2
+    return checksum 
     
-    return 0, 0
+def solve(puzzle_data, disc_size):
+    while len(puzzle_data) < disc_size:
+        puzzle_data = gendata(puzzle_data)
+    data = puzzle_data[:disc_size]
+    checksum = findchecksum(data)
+    while len(checksum)%2 == 0:
+        checksum = findchecksum(checksum)
+    
+    return ''.join([str(num) for num in checksum])
 
 
 #puzzle_input = 01111001100111011    
