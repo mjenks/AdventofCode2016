@@ -31,33 +31,37 @@ def opendoors(path, location):
 def solve():
     #holds the path taken and current location of all options on each step
     current = [([], (1,1))]
+    valid_path_length = []
     vault_reached = False
     steps = 0
-    while not vault_reached:
+    while steps < 1000:
         step = [] #hold all possible steps
         for path, location in current:
             if location == (4,4):
+                if not vault_reached:
+                    short_path = path
                 vault_reached = True
-                short_path = path
-            options = opendoors(path, location)
-            for direction in options:
-                new = path[:]
-                new.append(direction)
-                x, y = location
-                if direction == 'U':
-                    y -= 1
-                elif direction == 'D':
-                    y += 1
-                elif direction == 'L':
-                    x -= 1
-                elif direction == 'R':
-                    x += 1
-                step.append((new, (x,y)))
+                valid_path_length.append(steps)
+            else:
+                options = opendoors(path, location)
+                for direction in options:
+                    new = path[:]
+                    new.append(direction)
+                    x, y = location
+                    if direction == 'U':
+                        y -= 1
+                    elif direction == 'D':
+                        y += 1
+                    elif direction == 'L':
+                        x -= 1
+                    elif direction == 'R':
+                        x += 1
+                    step.append((new, (x,y)))
                 
         current = step[:]
         steps += 1
                 
-    return ''.join(short_path), 0
+    return ''.join(short_path), max(valid_path_length)
 
 
     
