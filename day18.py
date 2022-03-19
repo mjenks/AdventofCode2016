@@ -37,12 +37,17 @@ def newRow(row):
     return new
     
 def solve(puzzle_data):
-    room = []
-    room.append(puzzle_data)
-    while len(room) < 40:
-        room.append(newRow(room[-1]))
+    current = puzzle_data
+    safe_tiles = sum(current)
+    row = 1
+    while row < 400000:
+        current = newRow(current)
+        safe_tiles += sum(current)
+        row += 1
+        if row == 40:
+            part1 = safe_tiles
         
-    return sum(sum(x) for x in room), 0
+    return part1, safe_tiles
 
 puzzle_path = "input_day18.txt"
 with open(puzzle_path) as f:
