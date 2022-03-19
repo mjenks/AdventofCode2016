@@ -16,8 +16,33 @@ def parse(puzzle_input):
             data.append(False)
     return data
     
+def isSafe(left, center, right):
+    trap = False
+    if right and not center and not left:
+        trap = True
+    if left and not center and not right:
+        trap = True
+    if center and left and not right:
+        trap = True
+    if center and right and not left:
+        trap = True       
+    return not trap
+    
+def newRow(row):
+    new = []
+    new.append(isSafe(True, row[0], row[1]))
+    for i in range(1,len(row)-1):
+        new.append(isSafe(row[i-1], row[i], row[i+1]))
+    new.append(isSafe(row[-2], row[-1], True))
+    return new
+    
 def solve(puzzle_data):
-    return 0, 0
+    room = []
+    room.append(puzzle_data)
+    while len(room) < 40:
+        room.append(newRow(room[-1]))
+        
+    return sum(sum(x) for x in room), 0
 
 puzzle_path = "input_day18.txt"
 with open(puzzle_path) as f:
