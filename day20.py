@@ -26,9 +26,11 @@ def solve(puzzle_data):
             test += 1
         if end > test:
             test = end + 1
+    while test <= 4294967295:
+        allowed.append(test)
+        test += 1
     
-    
-    return allowed[0], 0
+    return allowed[0], len(allowed)
 
 puzzle_path = "input_day20.txt"
 with open(puzzle_path) as f:
