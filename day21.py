@@ -29,6 +29,63 @@ def parse(puzzle_input):
 
     return data
     
+def swap(pwd, typ, x, y):
+    if typ == 'position':
+        new = list(pwd)
+        x = int(x)
+        y = int(y)
+        new[x] = pwd[y]
+        new[y] = pwd[x]
+    elif typ == 'letter':
+        new = []
+        for char in pwd:
+            if char == x:
+                new.append(y)
+            elif char == y:
+                new.append(x)
+            else:
+                new.append(char)
+    return ''.join(new)
+    
+def rotate(pwd, typ, x):
+    if typ == 'based':
+        i = pwd.index(x)
+        x = 1+i
+        if i >= 4:
+            x += 1
+        typ = 'right'
+    x = int(x)
+    new = list(pwd)
+    for j in range(len(pwd)):
+        if typ == 'right':
+            new[j] = pwd[(j-x)%len(pwd)]
+        elif typ == 'left':
+            new[j] = pwd[(j+x)%len(pwd)]
+    return ''.join(new)  
+    
+def reverse(pwd, x, y):
+    x = int(x)
+    y = int(y)
+    new = list(pwd)
+    for i in range(y-x+1):
+        new[x+i] = pwd[y-i]
+    return ''.join(new)
+    
+def move(pwd, x, y):
+    x = int(x)
+    y = int(y)
+    new = []
+    i = 0
+    hold = pwd[x]
+    for char in pwd:
+        if i == y:
+            new.append(hold)
+            i += 1
+        if i != x:
+            new.append(char)
+        i +=1
+    return ''.join(new)
+        
 def solve(puzzle_data):
     pwd = 'abcdefgh'
     return 0, 0
