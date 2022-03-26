@@ -75,20 +75,30 @@ def move(pwd, x, y):
     x = int(x)
     y = int(y)
     new = []
-    i = 0
     hold = pwd[x]
     for char in pwd:
+        i = len(new)
         if i == y:
             new.append(hold)
-            i += 1
-        if i != x:
+        if char != hold:
             new.append(char)
-        i +=1
+    if len(new) != len(pwd):
+        new.append(hold)
     return ''.join(new)
         
 def solve(puzzle_data):
     pwd = 'abcdefgh'
-    return 0, 0
+    for step in puzzle_data:
+        com = step[0]
+        if com == 'swap':
+            pwd = swap(pwd, step[1], step[2], step[3])
+        elif com == 'rotate':
+            pwd = rotate(pwd, step[1], step[2])
+        elif com == 'reverse':
+            pwd = reverse(pwd, step[1], step[2])
+        elif com == 'move':
+            pwd = move(pwd, step[1], step[2])
+    return pwd, 0
 
 puzzle_path = "input_day21.txt"
 with open(puzzle_path) as f:
