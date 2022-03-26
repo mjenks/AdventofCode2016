@@ -47,7 +47,24 @@ def swap(pwd, typ, x, y):
                 new.append(char)
     return ''.join(new)
     
-def rotate(pwd, typ, x):
+def rotate(pwd, typ, x, unscramble=False):
+    if unscramble:
+        if typ == 'right':
+            typ = 'left'
+        elif typ == 'left':
+            typ = 'right'
+        elif typ == 'based':
+            i = pwd.index(x)
+            if i == 0:
+                x = 1
+                typ = 'left'
+            elif i%2 == 1:
+                x = 1 + i//2
+                typ = 'left'
+            else:
+                x = 3 - i//2
+                typ = 'right'
+
     if typ == 'based':
         i = pwd.index(x)
         x = 1+i
@@ -98,7 +115,23 @@ def solve(puzzle_data):
             pwd = reverse(pwd, step[1], step[2])
         elif com == 'move':
             pwd = move(pwd, step[1], step[2])
-    return pwd, 0
+            
+    scmb = 'fbgdceah'
+    #unscramble this so go backward through the steps
+    for i in range(len(puzzle_data)):
+        step = puzzle_data[-(i+1)]
+        com = step[0]
+        if com == 'swap': #swap is the same forward or backward
+            scmb = swap(scmb, step[1], step[2], step[3])
+        elif com == 'rotate': #complicated but found by looking at the end position for each start index and shifting backward
+            scmb = rotate(scmb, step[1], step[2], True)
+        elif com == 'reverse': #reverse is the same forward or backward
+            scmb = reverse(scmb, step[1], step[2])
+        elif com == 'move': #to undo just switch x and y
+            scmb = move(scmb, step[2], step[1])
+            
+            
+    return pwd, scmb
 
 puzzle_path = "input_day21.txt"
 with open(puzzle_path) as f:
