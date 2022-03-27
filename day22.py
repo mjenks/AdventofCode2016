@@ -5,11 +5,19 @@ Created on Sun Mar 27 11:15:38 2022
 @author: mjenks
 """
 
+class node:
+    def __init__(self, info):
+        self.name = info[0]
+        self.size = int(info[1][:-1])
+        self.used = int(info[2][:-1])
+        self.avail = int(info[3][:-1])
+        self.percent_used = int(info[4][:-1])
+
 def parse(puzzle_input):
     data = []
     for line in puzzle_input[2:]:
-        line = line.strip().split()
-        data.append(line) #listed in order id, size, used, avail, use%
+        line = line.strip().split() #listed in order id, size, used, avail, use%
+        data.append(node(line))
     return data
     
 def solve(puzzle_data):
