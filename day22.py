@@ -37,8 +37,40 @@ def solve(puzzle_data):
                 pairs += 1
                 
     #part 2 the goal is to move data from x34-y0 to x-y0
+    #print a visual of the data
+    symb = [[0 for i in range(35)] for j in range(25)]
+    for node in puzzle_data:
+        if node.used == 0:
+            symb[node.y][node.x] = '_'
+            print 'open:', node.x, node.y
+        elif node.size > 100:
+            symb[node.y][node.x] = '|'
+            print 'wall:', node.x, node.y
+        else:
+            symb[node.y][node.x] = '.'
+            
+    symb[0][34] = '*'
+    symb[0][0] = 'X'
     
-    return pairs, 0
+    for row in symb:
+        print ''.join(row)
+        
+    #this shows a wall at row 11 from 21 to 34 and the open node at (27,14)
+    hole = [27,14]
+    #first move the node to the the left of wall
+    moves = hole[0] - 20
+    hole[0] = 20
+    #move hole up to the top row
+    moves += hole[1]
+    hole[1] = 0
+    #move it right to the corner (moving the target data left 1 spot)
+    moves += 34 - hole[0]
+    hole[0] = 34
+    #now to move the target data one node left the hole will move down, left 2, up, right (5 moves)
+    moves += 5*33 #target data is at x 33 so 33 moves to get to 0
+    
+    
+    return pairs, moves
 
 puzzle_path = "input_day22.txt"
 with open(puzzle_path) as f:
