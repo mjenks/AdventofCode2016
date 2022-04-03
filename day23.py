@@ -19,14 +19,17 @@ def parse(puzzle_input):
         data.append(inst)
     return data
     
-def solve(puzzle_data):
-    reg = {'a': 7, 'b': 0, 'c': 0, 'd': 0}
+def solve(puzzle_data, a):
+    reg = {'a': a, 'b': 0, 'c': 0, 'd': 0}
     i = 0
     while i < len(puzzle_data):
         inst = puzzle_data[i]
         if inst[0] == 'cpy':
             x = inst[1]
             y = inst[2]
+            if y not in reg.keys():
+                i += 1 
+                continue
             try:
                 reg[y] = int(x)
             except:
@@ -80,13 +83,14 @@ def solve(puzzle_data):
         else:
             print "Unknown Command"
             break
-    return reg['a'], 0
+    return reg['a']
 
 puzzle_path = "input_day23.txt"
 with open(puzzle_path) as f:
     puzzle_input = f.readlines()
     
 puzzle_data = parse(puzzle_input)
-solution1, solution2 = solve(puzzle_data)
+solution1 = solve(puzzle_data, 7)
 print solution1
+solution2 = solve(puzzle_data, 12)
 print solution2
