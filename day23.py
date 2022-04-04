@@ -62,16 +62,22 @@ def solve(puzzle_data, a):
         #for part 2
         #the next time the code hits this a becomes a*b, b is decreased 1, c decreased 2, d=0
         #the code will stop returning here after toggling the instruction 2 away (c = 2 is the last time)
-        #this could be used to signifantly speed up the solution
             x = inst[1]
             try:
                 target = i + int(x)
             except:
                 target = i + reg[x]
-            i += 1
+            #using to signifantly speed up the solution
+            if a == 12:
+                reg['a'] = reg['a']*reg['b']
+                reg['b'] -= 1
+                reg['c'] -= 2
+                if reg['c'] == 0:
+                    i += 1
+            else:
+                i += 1
             try: 
                 test = puzzle_data[target]
-                print target, test
             except:
                 continue
             if len(test) == 2:
@@ -84,6 +90,7 @@ def solve(puzzle_data, a):
                     puzzle_data[target][0] = 'cpy'
                 else:
                     puzzle_data[target][0] = 'jnz'
+            
                 
         else:
             print "Unknown Command"
