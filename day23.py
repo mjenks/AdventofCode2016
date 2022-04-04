@@ -58,7 +58,11 @@ def solve(puzzle_data, a):
                 i += 1
             else:
                 i += y
-        elif inst[0] == 'tgl':
+        elif inst[0] == 'tgl': 
+        #for part 2
+        #the next time the code hits this a becomes a*b, b is decreased 1, c decreased 2, d=0
+        #the code will stop returning here after toggling the instruction 2 away (c = 2 is the last time)
+        #this could be used to signifantly speed up the solution
             x = inst[1]
             try:
                 target = i + int(x)
@@ -67,6 +71,7 @@ def solve(puzzle_data, a):
             i += 1
             try: 
                 test = puzzle_data[target]
+                print target, test
             except:
                 continue
             if len(test) == 2:
@@ -83,6 +88,7 @@ def solve(puzzle_data, a):
         else:
             print "Unknown Command"
             break
+        
     return reg['a']
 
 puzzle_path = "input_day23.txt"
@@ -90,7 +96,7 @@ with open(puzzle_path) as f:
     puzzle_input = f.readlines()
     
 puzzle_data = parse(puzzle_input)
-solution1 = solve(puzzle_data, 7)
-print solution1
+#solution1 = solve(puzzle_data, 7)
+#print solution1
 solution2 = solve(puzzle_data, 12)
 print solution2
