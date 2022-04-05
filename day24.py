@@ -84,6 +84,7 @@ def findPaths(p):
 def solve():
     pair_routes = []
     shortest = 1000
+    shortest_loop = 1000
     for i in range(len(points)):
         pair_routes.append(findPaths(i))
     for path in itertools.permutations(range(1,len(points))):
@@ -91,8 +92,11 @@ def solve():
         for i in range(6):
             length += pair_routes[path[i]][path[i+1]]
         shortest = min(length, shortest)
+        #add the distance back to 0
+        length += pair_routes[path[-1]][0]
+        shortest_loop = min(length, shortest_loop)
     
-    return shortest, 0
+    return shortest, shortest_loop
 
 puzzle_path = "input_day24.txt"
 with open(puzzle_path) as f:
