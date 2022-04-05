@@ -5,9 +5,17 @@ Created on Mon Apr 04 11:04:13 2022
 @author: mjenks
 """
 
+import itertools
+
+points = {}
+
+def get_key(val):
+    for key, value in points.items():
+         if val == value:
+             return key
+
 def parse(puzzle_input):
     data = []
-    points = []
     j = 0
     for line in puzzle_input:
         line = line.strip()
@@ -18,27 +26,80 @@ def parse(puzzle_input):
                 row.append(1)
             elif char == '.':
                 row.append(0)
-            elif char == '0':
-                row.append(0)
-                start = (i,j)
             else:
                 row.append(0)
-                points.append((i,j))
+                points[int(char)] = (i,j)
             i += 1
         data.append(row)
         j += 1            
         
-    return start, points, data
+    return data
     
-def solve(puzzle_data):
-    return 0, 0
+def isopen(x,y):
+    global puzzle_data
+    if puzzle_data[y][x] == 0:
+        return True
+    else:
+        return False
+    
+def move(current, visited):
+    options = []
+    for point in current:
+        x, y = point
+        if isopen(x+1,y) and (x+1,y) not in visited:
+            spot = x+1, y
+            visited.add(spot)
+            options.append(spot)
+        if isopen(x,y+1) and (x,y+1) not in visited:
+            spot = x, y+1
+            visited.add(spot)
+            options.append(spot)
+        if isopen(x-1, y) and (x-1,y) not in visited:
+            spot = x-1, y
+            visited.add(spot)
+            options.append(spot)
+        if isopen(x, y-1) and (x,y-1) not in visited:
+            spot = x, y-1
+            visited.add(spot)
+            options.append(spot)
+    return options, visited
+    
+def findPaths(p):
+    location = [points[p]]
+    steps = 0
+    shortest_routes = [0 for a in range(len(points))]
+    visited = set()
+    visited.add(location[0])
+    while (shortest_routes.count(0) != 1):
+        steps += 1
+        location, visited = move(location, visited)
+        for spot in location:
+            if spot in points.values():
+                index = get_key(spot)
+                if shortest_routes[index] == 0:
+                    shortest_routes[index] = steps
+    
+    return shortest_routes
+    
+def solve():
+    pair_routes = []
+    shortest = 1000
+    for i in range(len(points)):
+        pair_routes.append(findPaths(i))
+    for path in itertools.permutations(range(1,len(points))):
+        length = pair_routes[0][path[0]]
+        for i in range(6):
+            length += pair_routes[path[i]][path[i+1]]
+        shortest = min(length, shortest)
+    
+    return shortest, 0
 
 puzzle_path = "input_day24.txt"
 with open(puzzle_path) as f:
     puzzle_input = f.readlines()
     
 puzzle_data = parse(puzzle_input)
-solution1, solution2 = solve(puzzle_data)
+solution1, solution2 = solve()
 
 print(solution1)
 print(solution2)
